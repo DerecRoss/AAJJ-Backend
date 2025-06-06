@@ -26,11 +26,10 @@ public class User {
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    private Charge charge;
+    private Charge teacher;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private User teacher;
+    @Enumerated(EnumType.STRING)
+    private Charge charge;
 
     @Enumerated(EnumType.STRING)
     private Time time;
