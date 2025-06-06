@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Ajj Backend</title>
@@ -7,9 +7,9 @@
 <body>
     <form id="signupForm">
         <input name="name"/>
+        <input name="password">
         <input name="email"/>
         <input name="phone"/>
-        <input name="name"/>
         <select name="teacher">
             <option value="ANDERSON">ANDERSON</option>
             <option value="ULISSES">ULISSES</option>
@@ -30,5 +30,33 @@
             <!-- H_8AM, H_15PM, H_16PM, H_17PM, H_18PM, H_19PM, H_20PM, H_21PM List of times-->
         </select>
     </form>
+    <script defer>
+        document.getElementById("signupForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = {
+      name: form.name.value,
+      password: form.password.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      teacher: form.teacher.value,
+      charge: form.charge.value,
+      time: form.time.value
+    };
+
+    const resp = await fetch("/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await resp.json();
+    if (resp.ok) {
+      alert("Signup is Sucessfull!");
+    } else {
+      alert("Error: " + result.erro);
+    }
+  });
+    </script>
 </body>
 </html>
