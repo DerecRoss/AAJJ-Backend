@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/register")
 @RequiredArgsConstructor
@@ -17,7 +19,12 @@ public class RegisterManagerController {
 
     @PostMapping
     public ResponseEntity<User> save(@RequestBody UserDto userDto){
-        userService.save(userDto);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        User save = userService.save(userDto);
+        return new ResponseEntity<>(save, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<User>> listAll(){
+        return new ResponseEntity<>(userService.list(), HttpStatus.OK);
     }
 }

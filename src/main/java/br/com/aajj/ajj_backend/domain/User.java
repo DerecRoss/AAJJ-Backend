@@ -21,14 +21,12 @@ public class User {
 
     private String password;
 
-    @Column(unique = true)
     private String email;
 
-    @Column(unique = true)
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    private Charge teacher;
+    private Teacher teacher;
 
     @Enumerated(EnumType.STRING)
     private Charge charge;
@@ -36,6 +34,4 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Time time;
 
-    @OneToMany(mappedBy = "teacher")
-    private List<User> users;
 }

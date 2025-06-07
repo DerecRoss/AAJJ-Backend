@@ -6,6 +6,8 @@ import br.com.aajj.ajj_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -14,15 +16,18 @@ public class UserService {
 
     public User save(UserDto userDto){
         User user = new User();
-        user.setName(user.getName());
-        user.setPassword(user.getPassword());
-        user.setEmail(user.getEmail());
-        user.setPhone(user.getPhone());
-        user.setTeacher(user.getTeacher());
-        user.setCharge(user.getCharge());
-        user.setTime(user.getTime());
+        user.setName(userDto.getName());
+        user.setPassword(userDto.getPassword());
+        user.setEmail(userDto.getEmail());
+        user.setPhone(userDto.getPhone());
+        user.setTeacher(userDto.getTeacher());
+        user.setCharge(userDto.getCharge());
+        user.setTime(userDto.getTime());
 
-        return userRepository.save(user);
+       return userRepository.save(user);
     }
 
+    public List<User> list(){
+        return userRepository.findAll();
+    }
 }
