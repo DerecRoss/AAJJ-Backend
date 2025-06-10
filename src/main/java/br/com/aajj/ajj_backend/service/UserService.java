@@ -1,5 +1,6 @@
 package br.com.aajj.ajj_backend.service;
 
+import br.com.aajj.ajj_backend.domain.Teacher;
 import br.com.aajj.ajj_backend.domain.User;
 import br.com.aajj.ajj_backend.dto.UserDto;
 import br.com.aajj.ajj_backend.repository.UserRepository;
@@ -29,5 +30,9 @@ public class UserService {
 
     public List<User> list(){
         return userRepository.findAll();
+    }
+
+    public List<User> findByTeacher(String teacher){
+        return userRepository.findByTeacher(Teacher.valueOf(teacher.toUpperCase()));
     }
 }

@@ -26,4 +26,9 @@ public class HomeController {
         return "signup";
     }
 
+    @GetMapping("/team")
+    public String profile(){
+        return "team";
+    }
+
 }
