@@ -1,5 +1,6 @@
 package br.com.aajj.ajj_backend.dto;
 
+import br.com.aajj.ajj_backend.domain.Belt;
 import br.com.aajj.ajj_backend.domain.Charge;
 import br.com.aajj.ajj_backend.domain.Teacher;
 import br.com.aajj.ajj_backend.domain.Time;
@@ -13,16 +14,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
 
-    @NotEmpty(message = "User name can't be null")
+    @NotEmpty(message = "User name can't be null or empty")
     private String name;
 
-    @NotEmpty(message = "User name can't be null")
+    private int age;
+
+    @NotEmpty(message = "User password can't be null")
     private String password;
 
-    @NotEmpty(message = "User name can't be null")
+    @NotEmpty(message = "User email can't be null")
     private String email;
 
-    @NotEmpty(message = "User name can't be null")
+    @NotEmpty(message = "User phone can't be null")
     private String phone;
 
     private Teacher teacher;
@@ -30,4 +33,6 @@ public class UserDto {
     private Charge charge;
 
     private Time time;
+
+    private Belt belt;
 }

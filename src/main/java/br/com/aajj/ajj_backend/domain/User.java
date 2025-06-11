@@ -19,6 +19,8 @@ public class User {
 
     private String name;
 
+    private int age;
+
     private String password;
 
     private String email;
@@ -33,5 +35,8 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Time time;
+
+    @Enumerated(EnumType.STRING)
+    private Belt belt;
 
 }

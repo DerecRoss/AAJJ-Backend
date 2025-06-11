@@ -7,6 +7,7 @@
 <body>
     <form id="signupForm">
         <input name="name"/>
+        <input name="age"/>
         <input name="password">
         <input name="email"/>
         <input name="phone"/>
@@ -29,6 +30,26 @@
             <option value="H_21PM">H_21PM</option>
             <!-- H_8AM, H_15PM, H_16PM, H_17PM, H_18PM, H_19PM, H_20PM, H_21PM List of times-->
         </select>
+        <select name="belt">
+            <option value="BRANCA">BRANCA</option>
+            <option value="CINZA_E_BRANCA">CINZA E BRANCA</option>
+            <option value="CINZA">CINZA</option>
+            <option value="CINZA_E_PRETA">CINZA E PRETA</option>
+            <option value="AMARELA_E_BRANCA">AMARELA E BRANCA</option>
+            <option value="AMARELA">AMARELA</option>
+            <option value="AMARELA_E_PRETA">AMARELA E PRETA</option>
+            <option value="LARANJA_E_BRANCA">LARANJA E BRANCA</option>
+            <option value="LARANJA">LARANJA</option>
+            <option value="LARANJA_E_PRETA">LARANJA E PRETA</option>
+            <option value="VERDE_E_BRANCA">VERDE E BRANCA</option>
+            <option value="VERDE">VERDE</option>
+            <option value="VERDE_E_PRETA">VERDE E PRETA</option>
+            <option value="AZUL">AZUL</option>
+            <option value="ROXA">ROXA</option>
+            <option value="MARROM">MARROM</option>
+            <option value="PRETA">PRETA</option>
+            <!-- H_8AM, H_15PM, H_16PM, H_17PM, H_18PM, H_19PM, H_20PM, H_21PM List of times-->
+        </select>
         <button type="submit">Cadastrar</button>
     </form>
     <script defer>
@@ -37,12 +58,14 @@
     const form = e.target;
     const data = {
       name: form.name.value,
+      age: form.age.value,
       password: form.password.value,
       email: form.email.value,
       phone: form.phone.value,
       teacher: form.teacher.value,
       charge: form.charge.value,
-      time: form.time.value
+      time: form.time.value,
+      belt: form.belt.value
     };
 
     const resp = await fetch("http://localhost:8080/register", {

@@ -18,12 +18,14 @@ public class UserService {
     public User save(UserDto userDto){
         User user = new User();
         user.setName(userDto.getName());
+        user.setAge(userDto.getAge());
         user.setPassword(userDto.getPassword());
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
         user.setTeacher(userDto.getTeacher());
         user.setCharge(userDto.getCharge());
         user.setTime(userDto.getTime());
+        user.setBelt(userDto.getBelt());
 
        return userRepository.save(user);
     }
