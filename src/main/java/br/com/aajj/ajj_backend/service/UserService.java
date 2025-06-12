@@ -5,6 +5,7 @@ import br.com.aajj.ajj_backend.domain.User;
 import br.com.aajj.ajj_backend.dto.UserDto;
 import br.com.aajj.ajj_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +16,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     public User save(UserDto userDto){
         User user = new User();
         user.setName(userDto.getName());
         user.setAge(userDto.getAge());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
         user.setTeacher(userDto.getTeacher());
