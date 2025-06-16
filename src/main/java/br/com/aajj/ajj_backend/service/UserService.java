@@ -5,6 +5,8 @@ import br.com.aajj.ajj_backend.domain.User;
 import br.com.aajj.ajj_backend.dto.UserDto;
 import br.com.aajj.ajj_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +35,8 @@ public class UserService {
        return userRepository.save(user);
     }
 
-    public List<User> list(){
-        return userRepository.findAll();
+    public Page<User> list(Pageable pageable){
+        return userRepository.findAll(pageable);
     }
 
     public List<User> findByTeacher(String teacher){

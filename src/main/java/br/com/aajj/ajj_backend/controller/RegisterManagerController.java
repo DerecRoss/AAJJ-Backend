@@ -6,6 +6,8 @@ import br.com.aajj.ajj_backend.service.UserService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,7 @@ public class RegisterManagerController {
     }
 
     @GetMapping(path = "/find")
-    public ResponseEntity<List<User>> listAll(){
-        return new ResponseEntity<>(userService.list(), HttpStatus.OK);
+    public ResponseEntity<Page<User>> listAll(Pageable pageable){
+        return new ResponseEntity<>(userService.list(pageable), HttpStatus.OK);
     }
 }
