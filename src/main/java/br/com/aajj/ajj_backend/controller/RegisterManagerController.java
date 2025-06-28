@@ -32,4 +32,9 @@ public class RegisterManagerController {
     public ResponseEntity<Page<User>> listAll(Pageable pageable){
         return new ResponseEntity<>(userService.list(pageable), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/find-all")
+    public ResponseEntity<List<User>> listAllNoPageable( ){
+        return new ResponseEntity<>(userService.listAllNoPageable(), HttpStatus.OK);
+    }
 }

@@ -39,6 +39,10 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
+    public List<User> listAllNoPageable(){
+        return userRepository.findAll();
+    }
+
     public List<User> findByTeacher(String teacher){
         return userRepository.findByTeacher(Teacher.valueOf(teacher.toUpperCase()));
     }
