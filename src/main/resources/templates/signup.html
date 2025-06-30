@@ -28,7 +28,6 @@
             <option value="H_19PM">H_19PM</option>
             <option value="H_20PM">H_20PM</option>
             <option value="H_21PM">H_21PM</option>
-            <!-- H_8AM, H_15PM, H_16PM, H_17PM, H_18PM, H_19PM, H_20PM, H_21PM List of times-->
         </select>
         <select name="belt">
             <option value="BRANCA">BRANCA</option>
@@ -48,7 +47,6 @@
             <option value="ROXA">ROXA</option>
             <option value="MARROM">MARROM</option>
             <option value="PRETA">PRETA</option>
-            <!-- H_8AM, H_15PM, H_16PM, H_17PM, H_18PM, H_19PM, H_20PM, H_21PM List of times-->
         </select>
         <button type="submit">Cadastrar</button>
     </form>
@@ -75,10 +73,10 @@
     });
 
     const result = await resp.json();
-    if (resp.ok) {
-      alert("Signup is Sucessfull!");
-    } else {
+    if (!resp.ok) {
       alert("Error: " + result.erro);
+    } else {
+      alert("Signup is Sucessfull!");
     }
   });
     </script>

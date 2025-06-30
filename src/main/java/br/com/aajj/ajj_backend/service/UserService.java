@@ -5,6 +5,7 @@ import br.com.aajj.ajj_backend.domain.User;
 import br.com.aajj.ajj_backend.dto.UserDto;
 import br.com.aajj.ajj_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,6 +34,15 @@ public class UserService {
         user.setBelt(userDto.getBelt());
 
        return userRepository.save(user);
+    }
+
+    public User findByIdOrThrowBadRequestException(Long id) throws BadRequestException {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException("user not found"));
+    }
+
+    public void delete(Long id) throws BadRequestException {
+        userRepository.delete(findByIdOrThrowBadRequestException(id));
     }
 
     public Page<User> list(Pageable pageable){

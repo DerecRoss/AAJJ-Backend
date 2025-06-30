@@ -4,6 +4,8 @@ import br.com.aajj.ajj_backend.domain.User;
 import br.com.aajj.ajj_backend.repository.UserRepository;
 import br.com.aajj.ajj_backend.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,5 +37,11 @@ public class UserController {
         User user = userRepository.findByEmail(userDetails.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User can't be found"));
         return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping(path = "/api/admin")
+    public ResponseEntity<Void> delete(@PathVariable Long id) throws BadRequestException {
+        userService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
