@@ -32,6 +32,11 @@ public class RedirectController {
         return "team";
     }
 
+    @GetMapping("/profile")
+    public String getProfile(){
+        return "profile";
+    }
+
     @GetMapping("/redirect-role-based")
     public String redirectRoleBased(Authentication authentication){
         if (authentication.getAuthorities().stream().anyMatch( a ->

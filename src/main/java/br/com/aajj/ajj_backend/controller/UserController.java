@@ -1,20 +1,25 @@
 package br.com.aajj.ajj_backend.controller;
 
 import br.com.aajj.ajj_backend.domain.User;
+import br.com.aajj.ajj_backend.repository.UserRepository;
 import br.com.aajj.ajj_backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class UserController {
+
+
+    private final UserRepository userRepository;
 
     private final UserService userService;
 
@@ -22,5 +27,13 @@ public class UserController {
     public ResponseEntity<List<User>> findByTeacher(@RequestParam String teacher){
         List<User> users = userService.findByTeacher(teacher);
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping(path = "/api/profile")
+    @ResponseBody
+    public ResponseEntity<User> getProfile(@AuthenticationPrincipal UserDetails userDetails){
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User can't be found"));
+        return ResponseEntity.ok(user);
     }
 }

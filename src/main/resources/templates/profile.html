@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>AAJJ Backend</title>
+    <title>Perfil</title>
 </head>
 <body>
-    <a href="/profile"><button>Meu perfil</button></a>
-    <a href="/alunos"><button>Meus Alunos</button></a>
+<h1>Perfil do Usuário</h1>
+<p>Nome: <span id="user-name"></span></p>
+<p>Email: <span id="user-email"></span></p>
+<p>Telefone: <span id="user-phone"></span></p>
+<p>Idade: <span id="user-age"></span></p>
+<p>Faixa: <span id="user-belt"></span></p>
+<p>Horário: <span id="user-time"></span></p>
+
+<script>
+    async function loadProfile() {
+      const response = await fetch("/user/api/profile");
+      if (!response.ok) {
+        alert("Erro ao carregar perfil");
+        return;
+      }
+      const user = await response.json();
+
+      document.getElementById("user-name").textContent = user.name;
+      document.getElementById("user-email").textContent = user.email;
+      document.getElementById("user-phone").textContent = user.phone;
+      document.getElementById("user-age").textContent = user.age;
+      document.getElementById("user-belt").textContent = user.belt;
+      document.getElementById("user-time").textContent = user.time;
+    }
+
+    loadProfile();
+</script>
 </body>
 </html>
