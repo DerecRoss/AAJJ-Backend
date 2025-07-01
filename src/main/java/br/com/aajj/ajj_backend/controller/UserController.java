@@ -8,6 +8,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,16 @@ public class UserController {
                 .orElseThrow(() -> new UsernameNotFoundException("User can't be found"));
         return ResponseEntity.ok(user);
     }
+
+    @DeleteMapping(path = "/api/profile")
+    public ResponseEntity<Void> deleteProfile(@AuthenticationPrincipal UserDetails userDetails) throws BadRequestException {
+        String email = userDetails.getUsername();
+        userService.deleteProfile(email);
+        SecurityContextHolder.clearContext();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 
     @DeleteMapping(path = "/api/admin")
     public ResponseEntity<Void> delete(@PathVariable Long id) throws BadRequestException {

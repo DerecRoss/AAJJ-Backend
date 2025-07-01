@@ -45,6 +45,12 @@ public class UserService {
         userRepository.delete(findByIdOrThrowBadRequestException(id));
     }
 
+    public void deleteProfile(String email) throws BadRequestException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BadRequestException("User not found"));
+        userRepository.delete(user);
+    }
+
     public Page<User> list(Pageable pageable){
         return userRepository.findAll(pageable);
     }

@@ -17,7 +17,7 @@
     <div id="options">
         <button>Alterar informações</button>
         <button id="logout">Sair</button>
-        <button>Excluir Perfil</button>
+        <button id="deleteAccountBtn">Excluir Perfil</button>
     </div>
 <script>
     async function loadProfile() {
@@ -52,6 +52,25 @@
     }
   } catch (error) {
     console.error("Erro ao deslogar:", error);
+  }
+});
+
+document.getElementById("deleteAccountBtn").addEventListener("click", async () => {
+  if (!confirm("Tem certeza que deseja excluir sua conta? Essa ação não pode ser desfeita.")) return;
+
+  try {
+    const response = await fetch("/user/api/profile", {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      alert("Conta excluída com sucesso.");
+      window.location.href = "/home";
+    } else {
+      alert("Erro ao excluir conta.");
+    }
+  } catch (err) {
+    console.error("Erro:", err);
   }
 });
 
