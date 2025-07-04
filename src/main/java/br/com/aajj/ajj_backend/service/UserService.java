@@ -36,6 +36,17 @@ public class UserService {
        return userRepository.save(user);
     }
 
+    public User update(String email, UserDto userDtoUpdateData) throws BadRequestException {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new BadRequestException("user cant be found"));
+        user.setName(userDtoUpdateData.getName());
+        user.setAge(userDtoUpdateData.getAge());
+        user.setPhone(userDtoUpdateData.getPhone());
+        user.setTeacher(userDtoUpdateData.getTeacher());
+        user.setTime(userDtoUpdateData.getTime());
+        user.setBelt(userDtoUpdateData.getBelt());
+        return userRepository.save(user);
+    }
+
     public User findByIdOrThrowBadRequestException(Long id) throws BadRequestException {
         return userRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException("user not found"));

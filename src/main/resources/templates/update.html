@@ -2,22 +2,16 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Ajj Backend</title>
+    <title>AAJJ Backend</title>
 </head>
 <body>
     <form id="signupForm">
-        <input name="name" placeholder="Nome"/>
-        <input name="age" placeholder="Idade"/>
-        <input name="password" placeholder="Password">
-        <input name="email" placeholder="Email"/>
-        <input name="phone" placeholder="Telefone"/>
+        <input name="name"/>
+        <input name="age"/>
+        <input name="phone"/>
         <select name="teacher">
             <option value="ANDERSON">ANDERSON</option>
             <option value="ULISSES">ULISSES</option>
-        </select>
-        <select name="charge">
-            <option value="ALUNO">ALUNO</option>
-            <option value="PROFESSOR">PROFESSOR</option>
         </select>
         <select name="time">
             <option value="H_8AM">H_8AM</option>
@@ -57,17 +51,14 @@
     const data = {
       name: form.name.value,
       age: form.age.value,
-      password: form.password.value,
-      email: form.email.value,
       phone: form.phone.value,
       teacher: form.teacher.value,
-      charge: form.charge.value,
       time: form.time.value,
       belt: form.belt.value
     };
 
-    const resp = await fetch("http://localhost:8080/register", {
-      method: "POST",
+    const resp = await fetch("/user/api/profile", {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
@@ -77,10 +68,6 @@
       alert("Error: " + result.erro);
     } else {
       alert("Signup is Sucessfull!");
-      if(resp.charge == "PROFESSOR"){
-        window.location.href="/team"
-      }
-      window.location.href="/profile";
     }
   });
     </script>

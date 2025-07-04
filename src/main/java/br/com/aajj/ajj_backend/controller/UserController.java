@@ -1,6 +1,7 @@
 package br.com.aajj.ajj_backend.controller;
 
 import br.com.aajj.ajj_backend.domain.User;
+import br.com.aajj.ajj_backend.dto.UserDto;
 import br.com.aajj.ajj_backend.repository.UserRepository;
 import br.com.aajj.ajj_backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
+    @PutMapping(path = "/api/profile")
+    public ResponseEntity<User> updateProfile(@AuthenticationPrincipal UserDetails userDetails, @RequestBody UserDto userDto) throws BadRequestException {
+        User user = userService.update(userDetails.getUsername(), userDto);
+        return ResponseEntity.ok(user);
+    }
 
     @DeleteMapping(path = "/api/admin")
     public ResponseEntity<Void> delete(@PathVariable Long id) throws BadRequestException {
