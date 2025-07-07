@@ -12,7 +12,7 @@ public class RedirectController {
         return "redirect:/home";
     }
 
-    @GetMapping("/home")
+    @GetMapping({"/home"})
     public String homePage(){
         return "home"; // search home in directories -> templates -> home.html
     }

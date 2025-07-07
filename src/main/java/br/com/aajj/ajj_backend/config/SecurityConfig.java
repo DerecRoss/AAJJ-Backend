@@ -23,14 +23,21 @@ public class SecurityConfig{
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) ->
-                        auth.requestMatchers("/", "/home", "/register").permitAll()
+                                auth.requestMatchers("/", "/home", "/register").permitAll()
+                                .requestMatchers("/me").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form ->
                         form.loginPage("/login")
                             .defaultSuccessUrl("/redirect-role-based", true).permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll)
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/home")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                )
                 .userDetailsService(authUserDetailsService)
                 .build();
     }
