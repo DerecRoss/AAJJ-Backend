@@ -24,7 +24,8 @@ public class SecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) ->
                                 auth.requestMatchers("/", "/home", "/register").permitAll()
-                                        .requestMatchers("/team").hasRole("PROFESSOR")
+                                        .requestMatchers("/team", "/find", "/find-all", "/api/admin/**").hasRole("PROFESSOR")
+                                        .requestMatchers("/profile", "/api/profile", "/register").hasAnyRole("PROFESSOR", "ALUNO")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form ->
