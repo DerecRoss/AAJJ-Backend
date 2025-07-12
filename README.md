@@ -63,26 +63,6 @@ A segurança é aplicada:
 
     Integração com notificações por e-mail
 
-
-## 📂 Estrutura de diretórios
-
-src/
-├── main/
-│ ├── java/br/com/aajj/ajj_backend/
-│ │ ├── controller/
-│ │ ├── domain/
-│ │ ├── dto/
-│ │ ├── repository/
-│ │ ├── service/
-│ │ └── config/
-│ └── resources/
-│ ├── static/
-│ ├── templates/
-│ └── application.properties
-
-
----
-
 ## 🛠️ Como rodar localmente
 
 1. Clone o repositório:
