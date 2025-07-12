@@ -57,7 +57,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @DeleteMapping(path = "/api/admin")
+    @DeleteMapping(path = "/api/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) throws BadRequestException {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

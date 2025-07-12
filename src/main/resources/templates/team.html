@@ -44,6 +44,11 @@
           const div = document.createElement("div");
           div.className = "user-card";
           div.innerHTML = `<strong>Nome:</strong> ${user.name}<br><strong>Email:</strong> ${user.email}<br><strong>Horário</strong> ${user.time}`;
+          const button = document.createElement("button");
+          button.className = "user-remove-button";
+          button.textContent = "Remover aluno";
+          button.setAttribute("data-user-id", user.id);
+          div.appendChild(button);
           container.appendChild(div);
         });
       } catch (err) {
@@ -51,6 +56,30 @@
         console.error(err);
       }
     });
+
+    document.getElementById("teamElement").addEventListener("click", async function (event) {
+    if (event.target.classList.contains("user-remove-button")) {
+      const userId = event.target.getAttribute("data-user-id");
+
+      if (!confirm("Tem certeza que deseja excluir este aluno da turma? Essa ação não pode ser desfeita.")) return;
+
+      try {
+        const response = await fetch(`/user/api/admin/${userId}`, {
+          method: "DELETE"
+        });
+
+        if (response.ok) {
+          alert("Aluno removido com sucesso.");
+          event.target.closest(".user-card").remove(); // Remove visualmente o card
+        } else {
+          alert("Erro ao excluir aluno.");
+        }
+      } catch (err) {
+        console.error("Erro:", err);
+        alert("Erro na requisição.");
+      }
+    }
+  });
   </script>
 </body>
 </html>
