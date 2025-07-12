@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -62,10 +63,12 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    @PreAuthorize("hasRole('PROFESSOR')")
     public Page<User> list(Pageable pageable){
         return userRepository.findAll(pageable);
     }
 
+    @PreAuthorize("hasRole('PROFESSOR')")
     public List<User> listAllNoPageable(){
         return userRepository.findAll();
     }
