@@ -2,13 +2,53 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>AAJJ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAJJ - Academia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Welcome</h1>
-    <a href="/register" id="btnRegister"><button>Cadastrar-se</button></a>
-    <a href="/login" id="btnLogin"><button>Login</button></a>
-    <a href="/team" id="btnTeam"><button>Minhas Turmas</button></a>
-    <a href="/profile"><button>Meu perfil</button></a>
+<body class="bg-white text-black font-sans">
+<!-- Navbar -->
+<nav class="bg-black shadow-md" style="border: 1px, solid, white">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <img src="https://scontent.fcpq7-1.fna.fbcdn.net/v/t39.30808-1/471949936_1238995874424855_3270919604751163397_n.jpg?stp=c99.99.882.882a_dst-jpg_s200x200_tt6&_nc_cat=103&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=cWOQavBb6cIQ7kNvwECpGTZ&_nc_oc=Adl4yBKk-iz7meF-KfJ_UjBG8R6SnE5vTqMtmTb9suWRh6pduFR26y4E6GCy99jBKpMeFXYYLuM6VNlJrOfRC0mG&_nc_zt=24&_nc_ht=scontent.fcpq7-1.fna&_nc_gid=t4_3tDm58vzEVq7xx9nYsg&oh=00_Afa4-SH_3bSioYW9yPdZBqozxD-PzSpQYWFMm-M5uxfanA&oe=68C4E418" alt="Logo AAJJ" class="w-12 h-12 rounded-full">
+            <h1 class="text-2xl font-bold text-white">AAJJ</h1>
+        </div>
+        <div class="space-x-4">
+            <a href="/register" id="btnRegister" class="border border-white bg-black text-white font-semibold px-4 py-2 rounded hover:bg-white hover:text-black transition">Cadastrar-se</a>
+            <a href="/login" id="btnLogin" class="border border-white bg-black text-white font-semibold px-4 py-2 rounded hover:bg-white hover:text-black transition">Login</a>
+            <a href="/team" id="btnTeam" class="border border-white bg-black text-white font-semibold px-4 py-2 rounded hover:bg-white hover:text-black transition">Minhas Turmas</a>
+            <a href="/profile" class="border border-white bg-black text-white font-semibold px-4 py-2 rounded hover:bg-white hover:text-black transition">Meu Perfil</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="bg-black text-white py-20">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4">Força. Coragem. Fé.</h2>
+        <p class="text-lg mb-6">Seja bem-vindo à Anderson Adão Jiu Jitsu. Transforme seu corpo e mente com a arte suave.</p>
+        <a href="/register" class="bg-white text-black font-bold px-6 py-3 rounded-lg hover:bg-gray-200">Comece Agora</a>
+    </div>
+</section>
+
+<!-- Cards -->
+<section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+        <div class="border border-black p-6 rounded-lg hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold mb-2">Aulas de Jiu-Jitsu</h3>
+            <p>Aprenda com um professor experiente e evolua no tatame.</p>
+        </div>
+        <div class="border border-black p-6 rounded-lg hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold mb-2">Nossas Turmas</h3>
+            <p>Temos diversas turmas para todo público, desde crianças a adultos.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-white py-6 text-center">
+    <p>&copy; 2025 Anderson Adão Jiu Jitsu. Todos os direitos reservados.</p>
+</footer>
 </body>
 </html>
