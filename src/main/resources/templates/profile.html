@@ -2,78 +2,107 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - AAJJ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div id="user-info">
-    <h1>Suas informações</h1>
-    <p>Nome: <span id="user-name"></span></p>
-    <p>Email: <span id="user-email"></span></p>
-    <p>Telefone: <span id="user-phone"></span></p>
-    <p>Idade: <span id="user-age"></span></p>
-    <p>Faixa: <span id="user-belt"></span></p>
-    <p>Horário: <span id="user-time"></span></p>
+<body class="bg-white text-black font-sans">
+<!-- Navbar -->
+<nav class="bg-black shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <img src="55014f8f-dca5-4a24-a9e5-fee74d67a547.png" alt="Logo AAJJ" class="w-12 h-12 rounded-full">
+            <h1 class="text-2xl font-bold text-white">AAJJ</h1>
+        </div>
+        <div class="space-x-4">
+            <a href="/register" class="border border-white bg-black text-white font-semibold px-4 py-2 rounded hover:bg-white hover:text-black transition">Cadastrar-se</a>
+            <a href="/login" class="border border-white bg-black text-white font-semibold px-4 py-2 rounded hover:bg-white hover:text-black transition">Login</a>
+            <a href="/team" class="border border-white bg-black text-white font-semibold px-4 py-2 rounded hover:bg-white hover:text-black transition">Minhas Turmas</a>
+            <a href="/profile" class="border border-white bg-black text-white font-semibold px-4 py-2 rounded hover:bg-white hover:text-black transition">Meu Perfil</a>
+        </div>
     </div>
-    <div id="options">
-        <a href="/update"><button>Alterar informações</button></a>
-        <button id="logout">Sair</button>
-        <button id="deleteAccountBtn">Excluir Perfil</button>
-        <a href="/home"><button>Voltar</button></a>
+</nav>
+
+<!-- Profile Section -->
+<section class="flex items-center justify-center py-16">
+    <div class="w-full max-w-2xl bg-black text-white rounded-lg shadow-lg p-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Suas Informações</h1>
+
+        <div id="user-info" class="space-y-3">
+            <p><span class="font-semibold">Nome:</span> <span id="user-name"></span></p>
+            <p><span class="font-semibold">Email:</span> <span id="user-email"></span></p>
+            <p><span class="font-semibold">Telefone:</span> <span id="user-phone"></span></p>
+            <p><span class="font-semibold">Idade:</span> <span id="user-age"></span></p>
+            <p><span class="font-semibold">Faixa:</span> <span id="user-belt"></span></p>
+            <p><span class="font-semibold">Horário:</span> <span id="user-time"></span></p>
+        </div>
+
+        <!-- Options -->
+        <div id="options" class="mt-8 space-y-4">
+            <a href="/update" class="block w-full text-center bg-white text-black font-bold py-2 rounded hover:bg-gray-200 transition">Alterar Informações</a>
+            <button id="logout" class="w-full bg-white text-black font-bold py-2 rounded hover:bg-gray-200 transition">Sair</button>
+            <button id="deleteAccountBtn" class="w-full bg-red-600 text-white font-bold py-2 rounded hover:bg-red-700 transition">Excluir Perfil</button>
+            <a href="/home" class="block w-full text-center bg-gray-500 text-white font-bold py-2 rounded hover:bg-gray-600 transition">Voltar</a>
+        </div>
     </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-white py-6 text-center">
+    <p>&copy; 2025 Anderson Adão Jiu Jitsu. Todos os direitos reservados.</p>
+</footer>
+
+<!-- Scripts -->
 <script>
     async function loadProfile() {
-      const response = await fetch("/user/api/profile");
-      if (!response.ok) {
-        alert("Erro ao carregar perfil");
-        return;
+      try {
+        const response = await fetch("/user/api/profile");
+        if (!response.ok) {
+          alert("Erro ao carregar perfil");
+          return;
+        }
+        const user = await response.json();
+        document.getElementById("user-name").textContent = user.name;
+        document.getElementById("user-email").textContent = user.email;
+        document.getElementById("user-phone").textContent = user.phone;
+        document.getElementById("user-age").textContent = user.age;
+        document.getElementById("user-belt").textContent = user.belt;
+        document.getElementById("user-time").textContent = user.time;
+      } catch (err) {
+        console.error("Erro ao carregar perfil:", err);
       }
-      const user = await response.json();
-
-      document.getElementById("user-name").textContent = user.name;
-      document.getElementById("user-email").textContent = user.email;
-      document.getElementById("user-phone").textContent = user.phone;
-      document.getElementById("user-age").textContent = user.age;
-      document.getElementById("user-belt").textContent = user.belt;
-      document.getElementById("user-time").textContent = user.time;
     }
+
     document.getElementById("logout").addEventListener("click", async () => {
-    try {
-    const response = await fetch("http://localhost:8080/logout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
+      try {
+        const response = await fetch("/logout", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" }
+        });
+        if (response.redirected) {
+          window.location.href = response.url;
+        } else {
+          alert("Logout falhou.");
+        }
+      } catch (error) {
+        console.error("Erro ao deslogar:", error);
+      }
     });
 
-    if (response.redirected) {
-      // Logout feito com sucesso, redirecionado para /login ou /home
-      window.location.href = response.url;
-    } else {
-      alert("Logout falhou.");
-    }
-  } catch (error) {
-    console.error("Erro ao deslogar:", error);
-  }
-});
-
-document.getElementById("deleteAccountBtn").addEventListener("click", async () => {
-  if (!confirm("Tem certeza que deseja excluir sua conta? Essa ação não pode ser desfeita.")) return;
-
-  try {
-    const response = await fetch("/user/api/profile", {
-      method: "DELETE",
+    document.getElementById("deleteAccountBtn").addEventListener("click", async () => {
+      if (!confirm("Tem certeza que deseja excluir sua conta? Essa ação não pode ser desfeita.")) return;
+      try {
+        const response = await fetch("/user/api/profile", { method: "DELETE" });
+        if (response.ok) {
+          alert("Conta excluída com sucesso.");
+          window.location.href = "/home";
+        } else {
+          alert("Erro ao excluir conta.");
+        }
+      } catch (err) {
+        console.error("Erro:", err);
+      }
     });
-
-    if (response.ok) {
-      alert("Conta excluída com sucesso.");
-      window.location.href = "/home";
-    } else {
-      alert("Erro ao excluir conta.");
-    }
-  } catch (err) {
-    console.error("Erro:", err);
-  }
-});
 
     loadProfile();
 </script>
