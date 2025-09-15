@@ -8,10 +8,10 @@
 </head>
 <body class="bg-white text-black font-sans">
 <!-- Navbar -->
-<nav class="bg-black shadow-md" style="border: 1px, solid, white">
+<nav class="bg-black shadow-md border border-white">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <div class="flex items-center space-x-3">
-            <img src="https://scontent.fcpq7-1.fna.fbcdn.net/v/t39.30808-1/471949936_1238995874424855_3270919604751163397_n.jpg?stp=c99.99.882.882a_dst-jpg_s200x200_tt6&_nc_cat=103&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=cWOQavBb6cIQ7kNvwECpGTZ&_nc_oc=Adl4yBKk-iz7meF-KfJ_UjBG8R6SnE5vTqMtmTb9suWRh6pduFR26y4E6GCy99jBKpMeFXYYLuM6VNlJrOfRC0mG&_nc_zt=24&_nc_ht=scontent.fcpq7-1.fna&_nc_gid=t4_3tDm58vzEVq7xx9nYsg&oh=00_Afa4-SH_3bSioYW9yPdZBqozxD-PzSpQYWFMm-M5uxfanA&oe=68C4E418" alt="Logo AAJJ" class="w-12 h-12 rounded-full">
+            <img src="/images/aajj-logo48x48.png" alt="Logo AAJJ" class="w-12 h-12 rounded-full">
             <h1 class="text-2xl font-bold text-white">AAJJ</h1>
         </div>
         <div class="space-x-4">
@@ -46,9 +46,46 @@
     </div>
 </section>
 
+<!-- Slider/Carousel -->
+<section class="bg-gray-100 py-16">
+    <div class="max-w-5xl mx-auto text-center mb-6">
+        <h2 class="text-3xl font-bold mb-4">Nossa Academia</h2>
+        <p class="text-lg text-gray-700">Confira algumas fotos do nosso espaço</p>
+    </div>
+    <div class="relative max-w-4xl mx-auto">
+        <div id="slider" class="overflow-hidden rounded-lg shadow-lg">
+            <div class="flex transition-transform duration-700" id="slides">
+                <img src="/images/aajj-logo.png" class="w-full flex-shrink-0" alt="Academia">
+                <img src="/images/aajj-logo.png" class="w-full flex-shrink-0" alt="Treino">
+                <img src="/images/equipe800x800.png" class="w-full flex-shrink-0" alt="Jiu-Jitsu">
+            </div>
+        </div>
+        <!-- slider -->
+        <button id="prev" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black text-white px-3 py-1 rounded-full hover:bg-gray-800">‹</button>
+        <button id="next" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black text-white px-3 py-1 rounded-full hover:bg-gray-800">›</button>
+    </div>
+</section>
+
 <!-- Footer -->
 <footer class="bg-black text-white py-6 text-center">
     <p>&copy; 2025 Anderson Adão Jiu Jitsu. Todos os direitos reservados.</p>
 </footer>
+
+<script>
+    const slides = document.getElementById("slides");
+    const totalSlides = slides.children.length;
+    let index = 0;
+
+    document.getElementById("next").addEventListener("click", () => {
+    index = (index + 1) % totalSlides;
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    });
+
+    document.getElementById("prev").addEventListener("click", () => {
+    index = (index - 1 + totalSlides) % totalSlides;
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    });
+
+</script>
 </body>
 </html>

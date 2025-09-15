@@ -3,74 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <title>Minhas Turmas</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    #teamElement { margin-top: 20px; }
-    .user-card { margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Minhas Turmas</h1>
-  <form id="teamForm">
-    <label for="teacher">Selecione o Professor:</label>
-    <select name="teacher" id="teacher">
+<body class="bg-white text-black font-sans flex">
+
+<!-- Sidebar -->
+<aside class="w-64 bg-black text-white h-screen fixed top-0 left-0 flex flex-col items-center py-8">
+  <h2 class="text-xl font-bold mb-6">Menu</h2>
+  <nav class="flex flex-col w-full text-center">
+    <a href="/home" class="py-3 hover:bg-gray-800 transition">Início</a>
+    <a href="/update" class="py-3 hover:bg-gray-800 transition">Alterar Informações</a>
+    <a href="/profile" class="py-3 hover:bg-gray-800 transition">Perfil</a>
+    <button id="logout" class="py-3 hover:bg-gray-800 transition">Sair</button>
+  </nav>
+</aside>
+
+<!-- Main Content -->
+<main class="ml-64 w-full min-h-screen p-8">
+  <h1 class="text-3xl font-bold mb-6">Minhas Turmas</h1>
+
+  <!-- Formulário -->
+  <form id="teamForm" class="flex flex-wrap items-center gap-4 mb-6">
+    <label for="teacher" class="text-lg font-medium">Selecione o Professor:</label>
+    <select id="teacher" name="teacher" class="border border-gray-300 rounded px-3 py-2">
       <option value="ANDERSON">ANDERSON</option>
       <option value="ULISSES">ULISSES</option>
     </select>
-    <button type="submit">Ver Alunos</button>
+    <button type="submit" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">
+      Ver Alunos
+    </button>
   </form>
-  <a href="/home"><button>Voltar</button></a>
-  <a href="/update"><button>Alterar informações</button></a>
-  <div id="teamElement"></div>
 
-  <script>
-    document.getElementById("teamForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const teacher = document.getElementById("teacher").value;
+  <!-- Lista de alunos -->
+  <div id="teamElement" class="grid gap-4"></div>
+</main>
 
-      try {
-        const resp = await fetch(`http://localhost:8080/user/team?teacher=${teacher}`);
-        const users = await resp.json();
+<script>
+  // Carregar lista de alunos
+  document.getElementById("teamForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const teacher = document.getElementById("teacher").value;
 
-        const container = document.getElementById("teamElement");
-        container.innerHTML = "";
+    try {
+      const resp = await fetch(`http://localhost:8080/user/team?teacher=${teacher}`);
+      const users = await resp.json();
 
-        if (users.length === 0) {
-          container.innerHTML = "<p>Nenhum aluno encontrado para este professor.</p>";
-          return;
-        }
+      const container = document.getElementById("teamElement");
+      container.innerHTML = "";
 
-        users.forEach(user => {
-          const div = document.createElement("div");
-          div.className = "user-card";
-          div.innerHTML = `<strong>Nome:</strong> ${user.name}<br><strong>Email:</strong> ${user.email}<br><strong>Horário</strong> ${user.time}`;
-          const button = document.createElement("button");
-          button.className = "user-remove-button";
-          button.textContent = "Remover aluno";
-          button.setAttribute("data-user-id", user.id);
-          div.appendChild(button);
-          container.appendChild(div);
-        });
-      } catch (err) {
-        alert("Erro ao buscar turmas.");
-        console.error(err);
+      if (!users || users.length === 0) {
+        container.innerHTML = "<p class='text-gray-600'>Nenhum aluno encontrado para este professor.</p>";
+        return;
       }
-    });
 
-    document.getElementById("teamElement").addEventListener("click", async function (event) {
+      users.forEach(user => {
+        const div = document.createElement("div");
+        div.className = "p-4 bg-white border border-gray-300 rounded shadow";
+        div.innerHTML = `
+          <p><strong>Nome:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Horário:</strong> ${user.time}</p>
+          <button
+            class="user-remove-button bg-red-600 text-white mt-3 px-3 py-1 rounded hover:bg-red-700 transition"
+            data-user-id="${user.id}">
+            Remover aluno
+          </button>
+        `;
+        container.appendChild(div);
+      });
+    } catch (err) {
+      alert("Erro ao buscar turmas.");
+      console.error(err);
+    }
+  });
+
+  // Remover aluno
+  document.getElementById("teamElement").addEventListener("click", async function (event) {
     if (event.target.classList.contains("user-remove-button")) {
       const userId = event.target.getAttribute("data-user-id");
 
       if (!confirm("Tem certeza que deseja excluir este aluno da turma? Essa ação não pode ser desfeita.")) return;
 
       try {
-        const response = await fetch(`/user/api/admin/${userId}`, {
-          method: "DELETE"
-        });
+        const response = await fetch(`/user/api/admin/${userId}`, { method: "DELETE" });
 
         if (response.ok) {
           alert("Aluno removido com sucesso.");
-          event.target.closest(".user-card").remove(); // Remove visualmente o card
+          event.target.closest("div").remove();
         } else {
           alert("Erro ao excluir aluno.");
         }
@@ -80,6 +99,24 @@
       }
     }
   });
-  </script>
+
+  // Logout
+  document.getElementById("logout").addEventListener("click", async () => {
+    try {
+      const response = await fetch("http://localhost:8080/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      });
+
+      if (response.redirected) {
+        window.location.href = response.url;
+      } else {
+        alert("Logout falhou.");
+      }
+    } catch (error) {
+      console.error("Erro ao deslogar:", error);
+    }
+  });
+</script>
 </body>
 </html>
