@@ -3,27 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>AAJJ Backend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <form id="signupForm">
-        <input name="name"/>
-        <input name="age"/>
-        <input name="phone"/>
-        <select name="teacher">
+<body class="bg-black text-white flex items-center justify-center min-h-screen">
+<div class="bg-neutral-900 p-8 rounded-2xl shadow-lg w-full max-w-lg">
+    <h1 class="text-2xl font-bold text-center mb-6">Atualizar Cadastro</h1>
+
+    <form id="signupForm" class="space-y-4">
+        <input type="text" name="name" placeholder="Nome completo"
+               class="w-full p-3 rounded-lg bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-white"/>
+
+        <input type="number" name="age" placeholder="Idade"
+               class="w-full p-3 rounded-lg bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-white"/>
+
+        <input type="text" name="phone" placeholder="Telefone"
+               class="w-full p-3 rounded-lg bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-white"/>
+
+        <select name="teacher"
+                class="w-full p-3 rounded-lg bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-white">
+            <option value="">Selecione o professor</option>
             <option value="ANDERSON">ANDERSON</option>
             <option value="ULISSES">ULISSES</option>
         </select>
-        <select name="time">
-            <option value="H_8AM">H_8AM</option>
-            <option value="H_15PM">H_15PM</option>
-            <option value="H_16PM">H_16PM</option>
-            <option value="H_17PM">H_17PM</option>
-            <option value="H_18PM">H_18PM</option>
-            <option value="H_19PM">H_19PM</option>
-            <option value="H_20PM">H_20PM</option>
-            <option value="H_21PM">H_21PM</option>
+
+        <select name="time"
+                class="w-full p-3 rounded-lg bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-white">
+            <option value="">Selecione o horário</option>
+            <option value="H_8AM">08:00</option>
+            <option value="H_15PM">15:00</option>
+            <option value="H_16PM">16:00</option>
+            <option value="H_17PM">17:00</option>
+            <option value="H_18PM">18:00</option>
+            <option value="H_19PM">19:00</option>
+            <option value="H_20PM">20:00</option>
+            <option value="H_21PM">21:00</option>
         </select>
-        <select name="belt">
+
+        <select name="belt"
+                class="w-full p-3 rounded-lg bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-white">
+            <option value="">Selecione a faixa</option>
             <option value="BRANCA">BRANCA</option>
             <option value="CINZA_E_BRANCA">CINZA E BRANCA</option>
             <option value="CINZA">CINZA</option>
@@ -42,34 +60,45 @@
             <option value="MARROM">MARROM</option>
             <option value="PRETA">PRETA</option>
         </select>
-        <button type="submit">Cadastrar</button>
+
+        <button type="submit"
+                class="w-full bg-white text-black py-3 rounded-lg font-semibold hover:bg-neutral-200 transition">
+            Atualizar
+        </button>
+        <button
+                class="w-full bg-white text-black py-3 rounded-lg font-semibold hover:bg-neutral-200 transition">
+            Voltar
+            <a href="/profile"></a>
+        </button>
     </form>
-    <script defer>
-        document.getElementById("signupForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const form = e.target;
-    const data = {
-      name: form.name.value,
-      age: form.age.value,
-      phone: form.phone.value,
-      teacher: form.teacher.value,
-      time: form.time.value,
-      belt: form.belt.value
-    };
+</div>
 
-    const resp = await fetch("/user/api/profile", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+<script defer>
+    document.getElementById("signupForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        name: form.name.value,
+        age: form.age.value,
+        phone: form.phone.value,
+        teacher: form.teacher.value,
+        time: form.time.value,
+        belt: form.belt.value
+      };
+
+      const resp = await fetch("/user/api/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await resp.json();
+      if (!resp.ok) {
+        alert("Erro: " + result.erro);
+      } else {
+        alert("Cadastro atualizado com sucesso!");
+      }
     });
-
-    const result = await resp.json();
-    if (!resp.ok) {
-      alert("Error: " + result.erro);
-    } else {
-      alert("Signup is Sucessfull!");
-    }
-  });
-    </script>
+</script>
 </body>
 </html>
