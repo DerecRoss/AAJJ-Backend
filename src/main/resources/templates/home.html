@@ -41,13 +41,13 @@
         </div>
         <div class="border border-black p-6 rounded-lg hover:shadow-lg transition">
             <h3 class="text-xl font-semibold mb-2">Nossas Turmas</h3>
-            <p>Temos diversas turmas para todo público, desde crianças a adultos.</p>
+            <a href="#teams"><p>Temos diversas turmas para todo público, desde crianças a adultos.</p></a>
         </div>
     </div>
 </section>
 
 <!-- Slider/Carousel -->
-<section class="bg-gray-100 py-16">
+<section class="bg-gray-100 py-16" id="teams">
     <div class="max-w-5xl mx-auto text-center mb-6">
         <h2 class="text-3xl font-bold mb-4">Nossa Academia e Equipe</h2>
         <p class="text-lg text-gray-700">Confira algumas fotos do nosso espaço e equipes!</p>
@@ -65,6 +65,146 @@
         <button id="next" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black text-white px-3 py-1 rounded-full hover:bg-gray-800">›</button>
     </div>
 </section>
+
+<section class="bg-white py-20">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-12">
+        <div class="flex justify-center">
+            <img src="/images/mestre.jpg" alt="Mestre Anderson Adão" class="rounded-2xl shadow-lg max-w-sm w-full">
+        </div>
+
+        <div>
+            <h2 class="text-3xl font-bold text-black mb-6">Nossa História</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                Temos mais de <span class="font-semibold text-black">10 anos de história</span> dedicados ao Jiu-Jitsu,
+                sempre valorizando a <span class="font-semibold">humildade</span> e trabalhando de forma
+                <span class="font-semibold">justa</span> com todos os nossos alunos e comunidade.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Nosso mestre, <span class="font-bold text-black">Anderson Adão</span>, é um grande atleta e referência
+                no esporte, inspirando gerações a evoluírem dentro e fora do tatame.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="bg-gray-100 py-20">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-black mb-6">Planos e Horários</h2>
+        <p class="text-lg text-gray-700 mb-12">
+            Confira nossos horários de treino e encontre a turma ideal para você:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <!-- Card 1 -->
+            <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
+                <div class="mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-black mb-2">Juvenil e Adultos</h3>
+                <p class="text-gray-600 mb-4">08:00</p>
+                <button class="bg-gray-300 text-black font-semibold px-6 py-2 rounded-full">Seg a Sex</button>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
+                <div class="mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-black mb-2">Infantil</h3>
+                <p class="text-gray-600 mb-4">17:00</p>
+                <button class="bg-gray-300 text-black font-semibold px-6 py-2 rounded-full">Seg a Sex</button>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
+                <div class="mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V7a2 2 0 00-2-2H6a2 2 0 00-2 2v6" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 13h16v8H4z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-black mb-2">Infantojuvenil</h3>
+                <p class="text-gray-600 mb-4">18:00</p>
+                <button class="bg-gray-300 text-black font-semibold px-6 py-2 rounded-full">
+                    Seg/Qua/Sex
+                </button>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
+                <div class="mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-9 4h8" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-black mb-2">Juvenil e Adultos</h3>
+                <p class="text-gray-600 mb-4">19:00</p>
+                <button class="bg-gray-300 text-black font-semibold px-6 py-2 rounded-full">Seg a Sex</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Contato e Localização -->
+<section class="bg-white py-20">
+    <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center text-black mb-12">Contato & Localização</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <!-- Informações de contato -->
+            <div class="space-y-6">
+                <h3 class="text-2xl font-semibold text-black mb-4">Entre em contato</h3>
+                <p class="text-gray-700">Tem alguma dúvida ou quer marcar uma aula experimental? Fale com a gente!</p>
+
+                <div class="space-y-3">
+                    <p class="flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-9 13l-9-7V5a2 2 0 012-2h14a2 2 0 012 2v9l-9 7z" />
+                        </svg>
+                        aajj@academia.com
+                    </p>
+                    <p class="flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h2l3.6 7.59a1 1 0 00.93.41h7.02a1 1 0 00.93-.41L21 5h-2m-5 14a2 2 0 11-4 0" />
+                        </svg>
+                        (15) 988357892
+                    </p>
+                    <p class="flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 12.414a4 4 0 10-5.657 5.657L12 22l5.657-5.343z" />
+                        </svg>
+                        R. João Cacetari, 24 - Jardim Mirante dos Ovnis, Votorantim - SP, 18116-375
+                    </p>
+                </div>
+
+                <!-- Botão CTA -->
+                <a href="https://wa.me/5515988357892" target="_blank"
+                   class="inline-block bg-black text-white font-semibold px-6 py-3 rounded-full hover:bg-gray-800 transition">
+                    Fale conosco no WhatsApp
+                </a>
+            </div>
+
+            <!-- Mapa -->
+            <div>
+                <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d914.3769239738768!2d-47.45420391625092!3d-23.550202812886972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c58a0fbc3bd46d%3A0x294a204891843612!2sAcademia%20de%20Jiu%20jitsu%20-%20Anderson%20Ad%C3%A3o%20Jiu%20Jitsu%20AAJJ!5e0!3m2!1spt-BR!2sbr!4v1758903032629!5m2!1spt-BR!2sbr"
+                        width="100%"
+                        height="350"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <!-- Footer -->
 <footer class="bg-black text-white py-6 text-center">
