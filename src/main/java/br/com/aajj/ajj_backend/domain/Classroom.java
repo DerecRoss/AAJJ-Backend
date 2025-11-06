@@ -22,9 +22,9 @@ public class Classroom {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private Teacher professor;
+    private Teacher teacher;
 
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
-    private List<Class> aulas;
+    private List<ClassLesson> aulas;
 
 }

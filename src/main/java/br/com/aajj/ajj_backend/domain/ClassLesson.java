@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Class {
+public class ClassLesson {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
@@ -26,7 +26,7 @@ public class Class {
     @JoinColumn(name = "turma_id")
     private Classroom classroom;
 
-    @OneToMany(mappedBy = "classPresence")
+    @OneToMany(mappedBy = "classLessonPresence")
     private List<Presence> presences;
 
 }

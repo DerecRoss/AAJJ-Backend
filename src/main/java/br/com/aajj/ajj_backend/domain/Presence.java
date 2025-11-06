@@ -15,7 +15,7 @@ public class Presence {
 
     @ManyToOne
     @JoinColumn(name = "aula_id")
-    private Class classPresence;
+    private ClassLesson classLessonPresence;
 
     @ManyToOne
     @JoinColumn(name = "user_tb")
