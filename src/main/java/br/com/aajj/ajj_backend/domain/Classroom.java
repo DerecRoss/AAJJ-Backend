@@ -24,7 +24,7 @@ public class Classroom {
     @Enumerated(EnumType.STRING)
     private Teacher professor;
 
-    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     private List<Class> aulas;
 
 }

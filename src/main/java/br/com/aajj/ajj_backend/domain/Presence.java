@@ -1,7 +1,7 @@
 package br.com.aajj.ajj_backend.domain;
 
+
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 

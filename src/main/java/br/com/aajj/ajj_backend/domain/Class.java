@@ -26,6 +26,7 @@ public class Class {
     @JoinColumn(name = "turma_id")
     private Classroom classroom;
 
-    @OneToMany(mappedBy = "aula", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "classPresence")
     private List<Presence> presences;
+
 }
