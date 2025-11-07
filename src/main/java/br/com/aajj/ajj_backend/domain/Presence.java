@@ -18,7 +18,7 @@ public class Presence {
     private ClassLesson classLessonPresence;
 
     @ManyToOne
-    @JoinColumn(name = "user_tb")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Enumerated(EnumType.STRING)

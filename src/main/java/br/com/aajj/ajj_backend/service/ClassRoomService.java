@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +25,12 @@ public class ClassRoomService {
 
     public List<Classroom> findAll(){
         return classRoomRepository.findAll();
+    }
+
+    public void delete(Long id){
+        Classroom classroom = classRoomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Classroom can't be found."));
+
+        classRoomRepository.delete(classroom);
     }
 }

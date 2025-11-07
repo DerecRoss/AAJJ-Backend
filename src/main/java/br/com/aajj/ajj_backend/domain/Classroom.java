@@ -1,5 +1,6 @@
 package br.com.aajj.ajj_backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,12 +11,12 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "turmas")
+@Table(name = "turma")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Classroom {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Long id;
 
     private LocalTime classHour;
 
@@ -25,6 +26,7 @@ public class Classroom {
     private Teacher teacher;
 
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<ClassLesson> aulas;
 
 }

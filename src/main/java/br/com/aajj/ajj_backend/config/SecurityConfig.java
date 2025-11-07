@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,7 +24,7 @@ public class SecurityConfig{
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) ->
-                                auth.requestMatchers("/", "/home", "/register", "/images/**", "/classroom/**").permitAll()
+                                auth.requestMatchers("/", "/home", "/register", "/images/**", "/classroom/**", "/lesson").permitAll()
                                         .requestMatchers("/team", "/find", "/find-all", "/api/admin/**").hasRole("PROFESSOR")
                                         .requestMatchers("/profile", "/api/profile", "/register").hasAnyRole("PROFESSOR", "ALUNO")
                                 .anyRequest().authenticated()

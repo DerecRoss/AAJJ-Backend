@@ -1,5 +1,6 @@
 package br.com.aajj.ajj_backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.List;
 @Data
 public class ClassLesson {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Long id;
 
     private LocalDate localDate;
 
@@ -24,6 +25,7 @@ public class ClassLesson {
 
     @ManyToOne
     @JoinColumn(name = "turma_id")
+    @JsonBackReference
     private Classroom classroom;
 
     @OneToMany(mappedBy = "classLessonPresence")
