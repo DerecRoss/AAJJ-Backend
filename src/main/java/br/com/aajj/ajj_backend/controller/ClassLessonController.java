@@ -21,4 +21,10 @@ public class ClassLessonController {
         ClassLesson classLesson = classLessonService.save(openLessonDto.getClassroom());
         return new ResponseEntity<>(classLesson, HttpStatus.CREATED);
     }
+
+    @PutMapping("/lesson/{id}/close")
+    public ResponseEntity<ClassLesson> closeLesson(@PathVariable Long id){
+        ClassLesson classLesson = classLessonService.closeLesson(id);
+        return new ResponseEntity<>(classLesson, HttpStatus.OK);
+    }
 }

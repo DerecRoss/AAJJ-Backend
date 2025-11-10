@@ -30,4 +30,16 @@ public class ClassLessonService {
 
         return classRepository.save(classLesson);
     }
+    public ClassLesson closeLesson(Long classRoomId){
+       ClassLesson lesson = classRepository.findById(classRoomId)
+               .orElseThrow(() -> new RuntimeException("This lesson can't be found."));
+
+       if (lesson.getStatusClass() == StatusClass.ENCERRADA){ // lesson == closed
+           return lesson;
+       }
+
+       lesson.setStatusClass(StatusClass.ENCERRADA);
+
+       return classRepository.save(lesson);
+    }
 }
