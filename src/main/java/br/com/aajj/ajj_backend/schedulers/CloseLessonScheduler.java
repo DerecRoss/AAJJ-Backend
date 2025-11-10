@@ -15,32 +15,44 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OpenLessonScheduler {
-
+public class CloseLessonScheduler {
     private final ClassRoomRepository classRoomRepository;
     private final ClassLessonService classLessonService;
 
-    @Scheduled(fixedDelayString = "${scheduler.openLesson.fixedDelayMs:300000}")
-    public void OpenLessonIfNeeded(){
-        log.debug("Searching classrooms for create lessons");
-        List<Classroom> classrooms = classRoomRepository.findAll();
+    @Scheduled(fixedDelayString = "${scheduler.closeLesson.fixedDelayMs:300000}")
+    public void closeLessonIfNeeded() {
+
+        log.debug("Searching classrooms to close lessons (scheduler)");
+
         LocalDateTime now = LocalDateTime.now();
+        List<Classroom> classrooms = classRoomRepository.findAll();
 
         for (Classroom classroom : classrooms) {
             try {
                 LocalTime classHour = classroom.getClassHour();
+
                 if (classHour == null) {
                     log.debug("Classroom id={} without classHour configured — skiped", classroom.getId());
                     continue;
                 }
 
-                LocalDateTime startToday = now.toLocalDate().atTime(classHour);
+                LocalTime closingHour = classHour
+                        .plusHours(1)
+                        .plusMinutes(15);
 
-                if (!now.isBefore(startToday)) {
-                    classLessonService.createIfNotExists(classroom.getId());
+                LocalDateTime closeDateTime = now.toLocalDate().atTime(closingHour);
+
+                if (now.isAfter(closeDateTime)) {
+                    log.debug("closed lesson for classroom id={} (closeTime={}, now={})",
+                            classroom.getId(), closingHour, now);
+
+                    classLessonService.closeIfOpen(classroom.getId());
+
                 } else {
-                    log.debug("this hour is not for classroom id={}, hour={} (now={})", classroom.getId(), classHour, now);
+                    log.debug("this hour is not for closed classroom id={}, closeTime={} (now={})",
+                            classroom.getId(), closingHour, now);
                 }
+
             } catch (Exception e) {
                 log.error("Error creating scheduler for classroom id={}: {}", classroom.getId(), e.getMessage(), e);
             }

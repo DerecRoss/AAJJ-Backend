@@ -64,4 +64,27 @@ public class ClassLessonService {
             return Optional.empty();
         }
     }
+
+    public Optional<ClassLesson> closeIfOpen(Long classRoomId){
+        Optional<ClassLesson> exist = classRepository.findByClassroom_IdAndLocalDate(classRoomId, LocalDate.now());
+
+        if (exist.isEmpty()){
+            log.debug("This lesson can't be found.");
+            return Optional.empty();
+        }
+
+        ClassLesson classLesson = exist.get();
+
+        if (classLesson.getStatusClass() == StatusClass.ENCERRADA){
+            log.debug("This lesson has been closed");
+            return Optional.empty();
+        }
+
+        classLesson.setStatusClass(StatusClass.ENCERRADA);
+        classLesson = classRepository.save(classLesson);
+
+        log.info("Lesson id={} closed successful", classRoomId);
+
+        return Optional.of(classLesson);
+    }
 }
