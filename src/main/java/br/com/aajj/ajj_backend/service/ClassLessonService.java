@@ -4,12 +4,15 @@ import br.com.aajj.ajj_backend.domain.ClassLesson;
 import br.com.aajj.ajj_backend.domain.StatusClass;
 import br.com.aajj.ajj_backend.repository.ClassRepository;
 import br.com.aajj.ajj_backend.repository.ClassRoomRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ClassLessonService {
@@ -41,5 +44,24 @@ public class ClassLessonService {
        lesson.setStatusClass(StatusClass.ENCERRADA);
 
        return classRepository.save(lesson);
+    }
+
+    @Transactional
+    public Optional<ClassLesson> createIfNotExists(Long classRoomId){
+
+        boolean exists = classRepository.findByClassroom_IdAndLocalDate(classRoomId, LocalDate.now()).isPresent();
+
+        if (exists){
+            log.debug("Lesson has been created for classroom id={}", classRoomId);
+            return Optional.empty();
+        }
+        try{
+            ClassLesson created = save(classRoomId);
+            log.debug("Lesson created for classroom id={} (classLesson id={})", classRoomId, created.getId());
+            return Optional.of(created);
+        }catch (Exception e){
+            log.warn("Error during create lesson for classroom id ={}: {}", classRoomId, e.getMessage());
+            return Optional.empty();
+        }
     }
 }
