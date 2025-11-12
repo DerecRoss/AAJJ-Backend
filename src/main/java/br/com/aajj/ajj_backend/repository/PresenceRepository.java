@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface PresenceRepository extends JpaRepository<Presence, Long> {
     Optional<Presence> findByClassLessonPresence_IdAndUser_Id(Long classLessonPresenceId, Long userId);
+    boolean existsByUser_IdAndClassLessonPresence_Id(Long userId, Long lessonId);
 }

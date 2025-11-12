@@ -1,8 +1,10 @@
 package br.com.aajj.ajj_backend.controller;
 
 import br.com.aajj.ajj_backend.domain.User;
+import br.com.aajj.ajj_backend.dto.OpenLessonUserDto;
 import br.com.aajj.ajj_backend.dto.UserDto;
 import br.com.aajj.ajj_backend.repository.UserRepository;
+import br.com.aajj.ajj_backend.service.ClassLessonService;
 import br.com.aajj.ajj_backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
@@ -24,9 +26,8 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class UserController {
 
-
     private final UserRepository userRepository;
-
+    private final ClassLessonService classLessonService;
     private final UserService userService;
 
     @GetMapping(path = "/team")
@@ -61,5 +62,21 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable Long id) throws BadRequestException {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    private Integer getLoggedUserId(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof User user){
+            return user.getId();
+        }
+
+        throw new RuntimeException("Forbidden - User don't have register.");
+    }
+
+    @GetMapping("/lesson/open")
+    public ResponseEntity<OpenLessonUserDto> getOpenLessonForUser(){
+        Integer userId = getLoggedUserId();
+        return new ResponseEntity<>(classLessonService.findOpenLessonForUser(userId), HttpStatus.OK);
     }
 }

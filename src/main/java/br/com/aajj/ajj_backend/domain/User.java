@@ -1,5 +1,6 @@
 package br.com.aajj.ajj_backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +31,11 @@ public class User implements UserDetails {
     private String email;
 
     private String phone;
+
+    @ManyToOne
+    @JoinColumn(name = "turma_id")
+    @JsonBackReference(value = "user-classroom")
+    private Classroom classroom;
 
     @Enumerated(EnumType.STRING)
     private Teacher teacher;

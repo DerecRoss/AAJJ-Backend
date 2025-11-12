@@ -1,10 +1,17 @@
 package br.com.aajj.ajj_backend.service;
 
+import br.com.aajj.ajj_backend.domain.ClassLesson;
+import br.com.aajj.ajj_backend.domain.Classroom;
 import br.com.aajj.ajj_backend.domain.Teacher;
 import br.com.aajj.ajj_backend.domain.User;
+import br.com.aajj.ajj_backend.dto.OpenLessonUserDto;
 import br.com.aajj.ajj_backend.dto.UserDto;
+import br.com.aajj.ajj_backend.repository.ClassRepository;
+import br.com.aajj.ajj_backend.repository.ClassRoomRepository;
+import br.com.aajj.ajj_backend.repository.PresenceRepository;
 import br.com.aajj.ajj_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,13 +19,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final ClassRoomRepository classRoomRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -33,6 +45,14 @@ public class UserService {
         user.setCharge(userDto.getCharge());
         user.setTime(userDto.getTime());
         user.setBelt(userDto.getBelt());
+
+        if (userDto.getTime() != null){
+            classRoomRepository.findByTeacherAndClassHour(userDto.getTeacher(), userDto.getTime().toLocalTime())
+                    .ifPresentOrElse(
+                            user::setClassroom,
+                            () -> log.debug("No classroom for this hour." + userDto.getTime())
+                    );
+        }
 
        return userRepository.save(user);
     }

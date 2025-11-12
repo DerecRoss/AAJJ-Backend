@@ -2,8 +2,12 @@ package br.com.aajj.ajj_backend.service;
 
 import br.com.aajj.ajj_backend.domain.ClassLesson;
 import br.com.aajj.ajj_backend.domain.StatusClass;
+import br.com.aajj.ajj_backend.domain.User;
+import br.com.aajj.ajj_backend.dto.OpenLessonUserDto;
 import br.com.aajj.ajj_backend.repository.ClassRepository;
 import br.com.aajj.ajj_backend.repository.ClassRoomRepository;
+import br.com.aajj.ajj_backend.repository.PresenceRepository;
+import br.com.aajj.ajj_backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +23,8 @@ public class ClassLessonService {
 
     private final ClassRepository classRepository;
     private final ClassRoomRepository classRoomRepository;
+    private final UserRepository userRepository;
+    private final PresenceRepository presenceRepository;
 
     public ClassLesson save(Long classRoomId){
         Optional<ClassLesson> classExist = classRepository.findByClassroom_IdAndLocalDate(classRoomId, LocalDate.now());
@@ -86,5 +92,35 @@ public class ClassLessonService {
         log.info("Lesson id={} closed successful", classRoomId);
 
         return Optional.of(classLesson);
+    }
+
+    public OpenLessonUserDto findOpenLessonForUser(Integer userId){
+        User user = userRepository.findById(Long.valueOf(userId))
+                .orElseThrow(() -> new RuntimeException("User can't be found."));
+
+        Optional<ClassLesson> openLesson = classRepository.findByClassroom_IdAndLocalDate(
+                user.getClassroom().getId(),
+                LocalDate.now()
+        );
+
+        if (openLesson.isEmpty()){
+            return new OpenLessonUserDto(
+                    false,
+                    null,
+                    false,
+                    "Don't have lessons for today."
+            );
+        }
+
+        ClassLesson lesson = openLesson.get();
+
+        boolean presenceExist = presenceRepository.existsByUser_IdAndClassLessonPresence_Id(Long.valueOf(userId), lesson.getId());
+
+        return new OpenLessonUserDto(
+                true,
+                lesson.getId(),
+                presenceExist,
+                presenceExist ? "Presence has been registered" : "Lesson Open - Presence register."
+        );
     }
 }
